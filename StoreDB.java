@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 
  public class StoreDB {
 
-  private String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=your_password";
+  private String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=master;user=ChartToppers;password=4398_sm2";
 
 
   public static void main(String [] args){

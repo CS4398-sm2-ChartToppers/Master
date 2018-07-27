@@ -1,5 +1,6 @@
 //connects to DB
-//still messing with permissions [on the database side] (?) to execute the statements 
+
+//TO RUN: add mssql.jdbc-6.4.0.jre8.jar to buildpath 
 
 import java.util.List;
 import java.sql.Connection;
@@ -15,42 +16,36 @@ import java.sql.DriverManager;
 
  public class StoreDB {
 
+	 
+	public StoreDB(List<String> colHeaders, List<List<String>> data, String tableName){
+		createTable(colHeaders, data, tableName);
+	 }
 
-//establishes server connection
-//arbitrary example for simple test
-  public static void main(String [] args){
-	  List<List<String>> data = new ArrayList<List<String>>();
-	  List<String> singleList = new ArrayList<String>();
-	  singleList.add("a");
-	  singleList.add("b");
-	  data.add(singleList);
-	  List<String> cols = new ArrayList<String>();
-	  cols.add("firstcol");
-	  cols.add("secondcol");
-	  cols.add("thirdcol");
-	  String table = "testTable";
-	  
-	 createTable(cols, data, table);
-
-  }
-
-
-//can create new blank DB, essentailly deletes the db but creates empty one with the same name.
-
-  public static void createDB(String db){
+	public StoreDB(String tableName) {
+		emptyTable(tableName);
+	}
+	
+	
+	
+	//storing tableName in null table (i.e. delete table)
+	public static void emptyTable(String tableName){
 
 	  String userName = "ChartToppers";
 	  String password = "12345678";
-	  String url = "jdbc:sqlserver://charttoppers.cji1q0n2fjrx.us-east-1.rds.amazonaws"; 
+	  String url = "jdbc:sqlserver://charttoppers.cji1q0n2fjrx.us-east-1.rds.amazonaws.com"; 
 	  		
 	  try {
 		  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		  Connection conn = DriverManager.getConnection(url, userName, password);
 		  
-		  String sql = "DROP DATABASE IF EXISTS " + db + ";" + " CREATE DATABASE " + db + ";"; 
+		  String sql = "USE CHARTTOPPERS"; 
 	      Statement statement = conn.createStatement();
 	      statement.executeUpdate(sql);
-		  
+	      sql = "DROP TABLE IF EXISTS dbo." + tableName + ";";
+	      statement = conn.createStatement();
+	      statement.executeUpdate(sql);
+	     
+		 
 		 
 	  } catch(Exception e) {
 		  e.printStackTrace();
@@ -59,8 +54,7 @@ import java.sql.DriverManager;
   }
 
 
-  //creates table: drops table if it exists-> creates new table-> inserts column header names (wins/loses/...)
-
+  //creates table: drops table if it exists-> creates new table-> inserts col and row data
   public static void createTable(List<String> colHeaders, List<List<String>> data, String tableName){
 
 
@@ -71,16 +65,19 @@ import java.sql.DriverManager;
 	  try {
 		  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		  Connection conn = DriverManager.getConnection(url, userName, password);
-		  System.out.println("LOGIN");
-		  String sql = "DROP TABLE IF EXISTS dbo." + tableName + ";";
+		 
+		  String sql = "USE CHARTTOPPERS"; 
+	      Statement statement = conn.createStatement();
+	      statement.executeUpdate(sql);
+		  sql = "DROP TABLE IF EXISTS dbo." + tableName + ";";
 		  //drop if table already exists
-		 Statement statement = conn.createStatement();
+		 statement = conn.createStatement();
 		 statement.executeUpdate(sql);
 		 sql = " CREATE TABLE dbo." + 
 				  tableName + " (team VARCHAR(15));";
 		 statement = conn.createStatement();
 		 statement.executeUpdate(sql);
-		 System.out.println("CREATE TABLE");
+		 
           //for each column name, insert it into table:
 		  
           for (int i = 0; i < colHeaders.size(); i++){ 
@@ -90,37 +87,39 @@ import java.sql.DriverManager;
               ); 
         	  statement = conn.createStatement();
         	  statement.executeUpdate(sql);
-        	  System.out.println("ADDCOL");
+        	  
 
             }
 
-       	 
- 
       String dummyElement = "?";
       
-      //traverses through all rows of teams
-      for(int i = 0; i < data.size(); i++ ) {
+      //traverses through all rows of team data
+      //stars at i=1 because column headers are at i=0
+      for(int i = 1; i < data.size()-1; i++ ) {
     	  
-    	  List<String> stats = data.get(i); 
-    	  sql = "INSERT into " + tableName + " values(";
+    	  List<String> row_data = data.get(i); //
+    	  
+    	  sql = "INSERT into " + tableName + " values(?,";
     	  
     	  //traverses through each row (individual team stats)
-    	  for (int j = 0; j < stats.size()-1; j++){ //build sql INSERT statement for num elements in row minus one
+    	  for (int j = 0; j < row_data.size()-2; j++){ //build sql INSERT statement for num elements in row minus one
     		  
-    		  sql = sql + dummyElement + ", ";
-    	  }
-
-    	  sql = sql + dummyElement + ");"; //add last element in row
-    	  PreparedStatement statementp = conn.prepareStatement(sql);
-
-      
-      //set the values into the sql statement
-    	  for (int k = 0; k < stats.size() -1; k++){
-
-    		  statementp.setString(i+1, stats.get(i));
-
+    		  sql = sql + " " + dummyElement + ", ";
+    		  
     	  }
     	  
+    	  sql = sql + dummyElement + ");"; //add last element in row
+    	  
+    	  PreparedStatement statementp = conn.prepareStatement(sql);
+    	  
+    	  //set the values into the sql statement
+    	  int val = 1;
+    	  for (int k = 0; k < row_data.size(); k++){
+
+    		  statementp.setString(val, row_data.get(k));
+    		  val++;
+
+    	  }
     	  statementp.executeUpdate();
 
       }

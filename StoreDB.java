@@ -1,5 +1,5 @@
 //connects to DB
-//still messing with permissions on the tables to execute the statements 
+//still messing with permissions [on the database side] (?) to execute the statements 
 
 import java.util.List;
 import java.sql.Connection;

@@ -1,113 +1,137 @@
+//connects to DB
+//still messing with permissions on the tables to execute the statements 
+
+import java.util.List;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 
+
+
  public class StoreDB {
 
-  private String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=master;user=ChartToppers;password=4398_sm2";
 
-
+//establishes server connection
+//arbitrary example for simple test
   public static void main(String [] args){
-    //...making main method for initial testing if it works
+	  List<List<String>> data = new ArrayList<List<String>>();
+	  List<String> singleList = new ArrayList<String>();
+	  singleList.add("a");
+	  singleList.add("b");
+	  data.add(singleList);
+	  List<String> cols = new ArrayList<String>();
+	  cols.add("firstcol");
+	  cols.add("secondcol");
+	  cols.add("thirdcol");
+	  String table = "testTable";
+	  
+	 createTable(cols, data, table);
+
   }
 
-  //sets up connection to sql server
-  public static Connection getConnection(){
-    return connection = DriverManager.getConnection(connectionUrl);
-
-  }
 
 //can create new blank DB, essentailly deletes the db but creates empty one with the same name.
+
   public static void createDB(String db){
 
-
-      try (getConnection()) { 
-
-        
-        String sql = "DROP DATABASE IF EXISTS " + db + ";" + " CREATE DATABASE " + 
-          db + ";"; 
-
-          try (Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(sql);
-            
-          }
-
-      }
+	  String userName = "ChartToppers";
+	  String password = "12345678";
+	  String url = "jdbc:sqlserver://charttoppers.cji1q0n2fjrx.us-east-1.rds.amazonaws"; 
+	  		
+	  try {
+		  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		  Connection conn = DriverManager.getConnection(url, userName, password);
+		  
+		  String sql = "DROP DATABASE IF EXISTS " + db + ";" + " CREATE DATABASE " + db + ";"; 
+	      Statement statement = conn.createStatement();
+	      statement.executeUpdate(sql);
+		  
+		 
+	  } catch(Exception e) {
+		  e.printStackTrace();
+	  }
+  
   }
+
 
   //creates table: drops table if it exists-> creates new table-> inserts column header names (wins/loses/...)
-  public static void createTable(String[] colHeaders, String tableName){
 
-    try{
+  public static void createTable(List<String> colHeaders, List<List<String>> data, String tableName){
 
-      // Load SQL Server JDBC driver and establish connection.
-      System.out.print("Connecting to SQL Server ... ");
 
-      try (getConnection()) { 
+	  String userName = "ChartToppers";
+	  String password = "12345678";
+	  String url = "jdbc:sqlserver://charttoppers.cji1q0n2fjrx.us-east-1.rds.amazonaws.com"; 
+	  		
+	  try {
+		  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		  Connection conn = DriverManager.getConnection(url, userName, password);
+		  System.out.println("LOGIN");
+		  String sql = "DROP TABLE IF EXISTS dbo." + tableName + ";";
+		  //drop if table already exists
+		 Statement statement = conn.createStatement();
+		 statement.executeUpdate(sql);
+		 sql = " CREATE TABLE dbo." + 
+				  tableName + " (team VARCHAR(15));";
+		 statement = conn.createStatement();
+		 statement.executeUpdate(sql);
+		 System.out.println("CREATE TABLE");
+          //for each column name, insert it into table:
+		  
+          for (int i = 0; i < colHeaders.size(); i++){ 
+        	  String colName = colHeaders.get(i); //wins/loses/etc column names
+        	  sql = ("ALTER table dbo." + tableName + " ADD " + colName + " VARCHAR(15);" 
 
-        System.out.println("Done.");
-        String sql = "DROP TABLE IF EXISTS " + tableName + ";" + " CREATE TABLE " + 
-          tableName + ";"; //drop and recreate table if table already exists
+              ); 
+        	  statement = conn.createStatement();
+        	  statement.executeUpdate(sql);
+        	  System.out.println("ADDCOL");
 
-          try (Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(sql);
-            
-          }
-
-          //for each column name, try to connect/insert it into DB
-          for (int i = 0; i < colHeaders.length; i++){ 
-
-            String colName = colHeaders[i]; //wins/loses/etc
-            
-            sql = ("ALTER table " + tableName + "; " + 
-                  "ADD " + colName + " VARCHAR(10);" 
-              ); //all varchars datatype for simple insert, shouldn't affect anything downstream 
-
-            try (Statement statement = connection.createStatement()) {
-              statement.executeUpdate(sql);
             }
 
-          } 
-
-      }//second try
-
-    }//first try
-  }
-
-
-  public static void setRowData(String[] row, String tableName){
-    
-    try (getConnection()) { 
+       	 
+ 
       String dummyElement = "?";
-      String sql = ("INSERT into " + tableName + " values(";
-
-      for (int i = 0; i < row.length -1; i++){ //build sql INSERT statement for num elements in row minus one
-
-        sql = sql + dummyElement + ", ";
-      }
-
-      sql = sql + dummyElement + ");"; //add last element in row
       
-      PreparedStatement statement = connection.prepareStatement(sql);
+      //traverses through all rows of teams
+      for(int i = 0; i < data.size(); i++ ) {
+    	  
+    	  List<String> stats = data.get(i); 
+    	  sql = "INSERT into " + tableName + " values(";
+    	  
+    	  //traverses through each row (individual team stats)
+    	  for (int j = 0; j < stats.size()-1; j++){ //build sql INSERT statement for num elements in row minus one
+    		  
+    		  sql = sql + dummyElement + ", ";
+    	  }
 
-      for (int i = 0; i < row.length -1; i++){
-        statement.setString(i+1, row[i]);
+    	  sql = sql + dummyElement + ");"; //add last element in row
+    	  PreparedStatement statementp = conn.prepareStatement(sql);
+
+      
+      //set the values into the sql statement
+    	  for (int k = 0; k < stats.size() -1; k++){
+
+    		  statementp.setString(i+1, stats.get(i));
+
+    	  }
+    	  
+    	  statementp.executeUpdate();
+
       }
+ 
+	  }catch(Exception e) {
+		  e.printStackTrace();
+   	}
 
-      statement.executeUpdate();
-    }
-}
-
-
-
+  }
 
 }//class
 
-
-  
 
 

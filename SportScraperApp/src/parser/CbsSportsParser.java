@@ -48,6 +48,20 @@ public class CbsSportsParser implements StandingsParser {
 		return new ScrapedData(colHeaders,teamStats, imgUrls);
 	}
 	
+	public static ScrapedData parseMLB(String url) throws IOException{
+		final List<String> colHeaders, imgUrls;
+		final List<List<String>> teamStats;
+		
+		//Get HTML file from URL
+		Document htmlFile = Jsoup.connect(url).maxBodySize(0).get();
+		//Parse
+		colHeaders = getHeaders(htmlFile);
+		teamStats = getMLBStats(htmlFile, colHeaders.size());
+		imgUrls = getImageURLS(htmlFile);
+				
+		return new ScrapedData(colHeaders,teamStats, imgUrls);
+	}
+	
 	private static List<String> getHeaders(Document htmlFile) {
 		LinkedHashSet<String> colHeaders = new LinkedHashSet<String>();
 		
@@ -96,10 +110,31 @@ public class CbsSportsParser implements StandingsParser {
 			teamStats.add(team);
 		}
 		teamStats.removeIf(list -> list.isEmpty());
+		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
 		
+		return stats;
+	}
+	
+	private static List<List<String>> getMLBStats(Document htmlFile, int numHeaders){
+		int max = 0;
+		HashSet<List<String>> teamStats = new HashSet<List<String>>();
+
+		for(Element row : htmlFile.select("tr")){
+			List<String> team = new ArrayList<String>();
+			int i = 0;
+			for(Element tds: row.select("td")) {
+				team.add(tds.text());
+			}
+			teamStats.add(team);
+		}
+		teamStats.removeIf(list -> list.isEmpty());
+		teamStats.removeIf(list -> list.size() > numHeaders+1);
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
 		return stats;
 	}
+		
+
+	
 	
 	private static List<String> getImageURLS(Document htmlFile) {
 		/*

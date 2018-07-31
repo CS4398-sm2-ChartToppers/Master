@@ -13,13 +13,9 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 
 public class StoreDB {	 
-	public StoreDB(List<String> colHeaders, List<List<String>> data, String tableName) {
-		createTable(colHeaders, data, tableName);
-	}
+	public StoreDB(List<String> colHeaders, List<List<String>> data, String tableName) { createTable(colHeaders, data, tableName); }
 			
-	public StoreDB(String tableName) {
-		emptyTable(tableName);
-	}
+	public StoreDB(String tableName) { emptyTable(tableName); }
 	
 	//storing tableName in null table (i.e. delete table)
 	public static void emptyTable(String tableName) {
@@ -37,9 +33,7 @@ public class StoreDB {
 			sql = "DROP TABLE IF EXISTS dbo." + tableName + ";";
 			statement = conn.createStatement();
 			statement.executeUpdate(sql); 
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+		} catch(Exception e) { e.printStackTrace(); }
 	}
 	
 	//creates table: drops table if it exists-> creates new table-> inserts col and row data
@@ -80,25 +74,20 @@ public class StoreDB {
 				sql = "INSERT into " + tableName + " values(?,";
 				
 				//traverses through each row (individual team stats)
-				for (int j = 0; j < row_data.size()-2; j++) { //build sql INSERT statement for num elements in row minus one
-					sql = sql + " " + dummyElement + ", ";
-				}
+				//build sql INSERT statement for num elements in row minus one
+				for (int j = 0; j < row_data.size()-2; j++) { sql = sql + " " + dummyElement + ", "; }
     	  
 				sql += dummyElement+");"; //add last element in row 
 				PreparedStatement statementp = conn.prepareStatement(sql);
     	  
 				//set the values into the sql statement
-				for (int k = 0; k < row_data.size(); k++){
-					statementp.setString((k+1), row_data.get(k));
-				}
+				for (int k = 0; k < row_data.size(); k++){ statementp.setString((k+1), row_data.get(k)); }
 				// try {
 				statementp.executeUpdate();
 				// }catch (Exception e) {
 				//	  e.getMessage();
 				// }
 			} 
-		} catch(Exception e) {
-		  e.printStackTrace();
-		}
+		} catch(Exception e) { e.printStackTrace(); }
 	}
 }//class

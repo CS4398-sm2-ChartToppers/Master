@@ -15,9 +15,8 @@ public class CreateCbsSqlTables implements QueryCommand {
 			 	 				   };
 	private final String tblNames[] = {"NFL", "NBA","NHL", "College_Football"};
 	private final String domain = "http://www.cbssports.com";	
-	public CreateCbsSqlTables() {
-		run();
-	}
+	public CreateCbsSqlTables() { run(); }
+	
 	@Override
 	public void run() {
 		ScrapedData data;
@@ -27,10 +26,7 @@ public class CreateCbsSqlTables implements QueryCommand {
 			data = CbsSportsParser.parse(domain+urls[i]);
 			System.out.println("Creating SQL Table for " + tblNames[i]+ " rankings...");
 			StoreDB.createTable(data.getColumnHeaders(), data.getTeamStats(), tblNames[i]);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.getMessage();
-			}
+			} catch (IOException e) { e.getMessage(); }
 		}
 		
 		try {
@@ -38,13 +34,7 @@ public class CreateCbsSqlTables implements QueryCommand {
 			data = CbsSportsParser.parseMLB(domain+"/mlb/standings/regular");
 			System.out.println("Creating SQL Table for MLB rankings...");
 			StoreDB.createTable(data.getColumnHeaders(), data.getTeamStats(), "MLB");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+		} catch (IOException e) { e.getMessage(); }
 		System.out.println("Finished Creating Tables!");
-		
 	}
-
-
 }

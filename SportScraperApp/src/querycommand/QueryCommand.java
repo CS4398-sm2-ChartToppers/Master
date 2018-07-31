@@ -1,6 +1,7 @@
 package querycommand;
 
-public interface QueryCommand extends Runnable{
+public interface QueryCommand extends Runnable {
+	
 	@Override
 	public void run();
 }

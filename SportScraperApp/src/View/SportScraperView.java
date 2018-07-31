@@ -43,6 +43,4 @@ public class SportScraperView extends JFrame implements View, ActionListener{
 	    String newSelection = (String) temp.getSelectedItem();
 	    ((SportScraperController)getController()).getSelection(newSelection);
 	}
-
-
 }

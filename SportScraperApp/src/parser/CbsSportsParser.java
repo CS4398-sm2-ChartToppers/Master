@@ -134,8 +134,7 @@ public class CbsSportsParser implements StandingsParser {
 		String firstUrl = null;
 		
 		for (Element img : htmlFile.select("img")) {
-			if(repeat == true && urlEquals(firstUrl, img.attr("data-lazy")))
-				break;
+			if(repeat == true && urlEquals(firstUrl, img.attr("data-lazy"))) break;
 			if(img.attr("alt").equals("team logo")) {
 				imgUrls.add(img.attr("data-lazy"));
 				if(repeat = false) {
@@ -165,8 +164,7 @@ public class CbsSportsParser implements StandingsParser {
 	}
 	
 	private static int maxListSize(int max ,int size) {
-		if (size > max )
-			max = size;
+		if (size > max ) max = size;
 		return max;
 	}
 	

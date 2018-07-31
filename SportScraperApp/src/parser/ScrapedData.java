@@ -12,28 +12,17 @@ public class ScrapedData {
 		this.imgUrls = imgUrls;
 	}
 	
-	public List getColumnHeaders() {
-		return this.columnHeaders;
-	}
+	public List getColumnHeaders() { return this.columnHeaders; }
 	
-	public List<List<String>> getTeamStats(){
-		return this.teamStats;
-	}
+	public List<List<String>> getTeamStats(){ return this.teamStats; }
 	
 	public void displayTeamStats() {
-		for (List<String> team : teamStats) {
-			System.out.println(team);
-		}
+		for (List<String> team : teamStats) { System.out.println(team); }
 	}
 	
-	public List getImgUrls() {
-		return this.imgUrls;
-	}
+	public List getImgUrls() { return this.imgUrls; }
 	
 	public void displayImgUrls() {
-		for(String url : imgUrls) {
-			System.out.println(url);
-		}
+		for(String url : imgUrls) { System.out.println(url); }
 	}
 }
-

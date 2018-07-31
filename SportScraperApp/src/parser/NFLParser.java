@@ -4,14 +4,8 @@ import org.jsoup.nodes.Document;
 
 public class NFLParser implements StandingsParser
 {
-	public NFLParser () {
-		System.out.println("NFLParser created!");
-	}
+	public NFLParser () { System.out.println("NFLParser created!"); }
 
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	public void run() { }
 }

@@ -49,5 +49,4 @@ public class SportScraperController implements Controller{
 		 * added.
 		 */
 	}
-
 }

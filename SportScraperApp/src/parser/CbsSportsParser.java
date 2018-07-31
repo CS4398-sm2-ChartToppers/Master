@@ -14,17 +14,11 @@ public class CbsSportsParser implements StandingsParser {
 
 	Document htmlDocument;
 	
-	public CbsSportsParser (Document html) {
-		this.htmlDocument = html;
-	}
+	public CbsSportsParser (Document html) { this.htmlDocument = html; }
 	
 	public CbsSportsParser (String url) {
-		try {
-			htmlDocument = Jsoup.connect(url).get();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+		try { htmlDocument = Jsoup.connect(url).get(); } 
+		catch (IOException e) { e.getMessage(); }
 	}
 	
 	public static ScrapedData parse(String url) throws IOException {
@@ -48,7 +42,7 @@ public class CbsSportsParser implements StandingsParser {
 		return new ScrapedData(colHeaders,teamStats, imgUrls);
 	}
 	
-	public static ScrapedData parseMLB(String url) throws IOException{
+	public static ScrapedData parseMLB(String url) throws IOException {
 		final List<String> colHeaders, imgUrls;
 		final List<List<String>> teamStats;
 		
@@ -58,34 +52,25 @@ public class CbsSportsParser implements StandingsParser {
 		colHeaders = getHeaders(htmlFile);
 		teamStats = getMLBStats(htmlFile, colHeaders.size());
 		imgUrls = getImageURLS(htmlFile);
-				
 		return new ScrapedData(colHeaders,teamStats, imgUrls);
 	}
 	
 	private static List<String> getHeaders(Document htmlFile) {
 		LinkedHashSet<String> colHeaders = new LinkedHashSet<String>();
 		
-		for(Element headers : htmlFile.select("th")) 
-		{
-			if(headers.text().equals("")) {
-				
-			}
+		for(Element headers : htmlFile.select("th")) {
+			if(headers.text().equals("")) { }
 			else {
-				if(headers.text().equals("W Wins")) 
-				{
-					do
-					{
+				if(headers.text().equals("W Wins")) {
+					do {
 						colHeaders.add("["+headers.text()+"]");
 						headers = headers.nextElementSibling();
-						
-					}while(headers != null);
+					} while(headers != null);
 					break;
 				}
 			}
 		}
-		
 		List<String> headers = new ArrayList<String>(colHeaders);
-		
 		return headers;
 	}
 	
@@ -101,40 +86,38 @@ public class CbsSportsParser implements StandingsParser {
 		for(Element row : htmlFile.select("tr")){
 			List<String> team = new ArrayList<String>();
 			int i = 0;
+			
 			for(Element tds: row.select("td")) {
-				if(i <= numHeaders) {
-					team.add(tds.text());
-				}
+				if(i <= numHeaders) { team.add(tds.text()); }
 				i++;
 			}
+			
 			teamStats.add(team);
 		}
+		
 		teamStats.removeIf(list -> list.isEmpty());
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
-		
 		return stats;
 	}
 	
-	private static List<List<String>> getMLBStats(Document htmlFile, int numHeaders){
+	private static List<List<String>> getMLBStats(Document htmlFile, int numHeaders) {
 		int max = 0;
 		HashSet<List<String>> teamStats = new HashSet<List<String>>();
 
-		for(Element row : htmlFile.select("tr")){
+		for(Element row : htmlFile.select("tr")) {
 			List<String> team = new ArrayList<String>();
 			int i = 0;
-			for(Element tds: row.select("td")) {
-				team.add(tds.text());
-			}
+			
+			for(Element tds: row.select("td")) { team.add(tds.text()); }
+			
 			teamStats.add(team);
 		}
+		
 		teamStats.removeIf(list -> list.isEmpty());
 		teamStats.removeIf(list -> list.size() > numHeaders+1);
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
 		return stats;
 	}
-		
-
-	
 	
 	private static List<String> getImageURLS(Document htmlFile) {
 		/*
@@ -149,6 +132,7 @@ public class CbsSportsParser implements StandingsParser {
 		List<String> imgUrls = new ArrayList<String>();
 		boolean repeat = false;
 		String firstUrl = null;
+		
 		for (Element img : htmlFile.select("img")) {
 			if(repeat == true && urlEquals(firstUrl, img.attr("data-lazy")))
 				break;
@@ -159,9 +143,7 @@ public class CbsSportsParser implements StandingsParser {
 					repeat = true;
 				}
 			}
-			
 		}
-		
 		return imgUrls;
 	}
 	
@@ -179,10 +161,7 @@ public class CbsSportsParser implements StandingsParser {
 			}
 			return true;
 		}
-		else {
-			return false;
-		}
-		
+		else { return false; }	
 	}
 	
 	private static int maxListSize(int max ,int size) {
@@ -192,9 +171,5 @@ public class CbsSportsParser implements StandingsParser {
 	}
 	
 	@Override
-	public void run() {
-	// TODO Auto-generated method stub
-		
-	}
-
+	public void run() { }
 }

@@ -52,6 +52,7 @@ public class CbsSportsParser implements StandingsParser {
 		colHeaders = getHeaders(htmlFile);
 		teamStats = getMLBStats(htmlFile, colHeaders.size());
 		imgUrls = getImageURLS(htmlFile);
+		
 		return new ScrapedData(colHeaders,teamStats, imgUrls);
 	}
 	
@@ -74,7 +75,7 @@ public class CbsSportsParser implements StandingsParser {
 		return headers;
 	}
 	
-	private static List<List<String>> getTeamStats(Document htmlFile, int numHeaders){
+	private static List<List<String>> getTeamStats(Document htmlFile, int numHeaders) {
 		/*
 		 * cbssports.com repeats the same information on their page multiple
 		 * times using the same HTML tags and elements. 
@@ -83,7 +84,7 @@ public class CbsSportsParser implements StandingsParser {
 		 * 
 		*/
 		HashSet<List<String>> teamStats = new HashSet<List<String>>();
-		for(Element row : htmlFile.select("tr")){
+		for(Element row : htmlFile.select("tr")) {
 			List<String> team = new ArrayList<String>();
 			int i = 0;
 			
@@ -97,6 +98,7 @@ public class CbsSportsParser implements StandingsParser {
 		
 		teamStats.removeIf(list -> list.isEmpty());
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
+		
 		return stats;
 	}
 	
@@ -116,6 +118,7 @@ public class CbsSportsParser implements StandingsParser {
 		teamStats.removeIf(list -> list.isEmpty());
 		teamStats.removeIf(list -> list.size() > numHeaders+1);
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
+		
 		return stats;
 	}
 	
@@ -143,6 +146,7 @@ public class CbsSportsParser implements StandingsParser {
 				}
 			}
 		}
+		
 		return imgUrls;
 	}
 	

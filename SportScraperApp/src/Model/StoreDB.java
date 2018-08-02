@@ -13,12 +13,15 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 
 public class StoreDB {	 
+	public static boolean status;
+	
 	public StoreDB(List<String> colHeaders, List<List<String>> data, String tableName) { createTable(colHeaders, data, tableName); }
 			
 	public StoreDB(String tableName) { emptyTable(tableName); }
 	
 	//storing tableName in null table (i.e. delete table)
 	public static void emptyTable(String tableName) {
+		status = false;
 		String userName = "ChartToppers";
 		String password = "12345678";
 		String url = "jdbc:sqlserver://charttoppers.cji1q0n2fjrx.us-east-1.rds.amazonaws.com"; 
@@ -38,6 +41,7 @@ public class StoreDB {
 	
 	//creates table: drops table if it exists-> creates new table-> inserts col and row data
 	public static void createTable(List<String> colHeaders, List<List<String>> data, String tableName) {
+		status = true;
 		String userName = "ChartToppers";
 		String password = "12345678";
 		String url = "jdbc:sqlserver://charttoppers.cji1q0n2fjrx.us-east-1.rds.amazonaws.com"; 

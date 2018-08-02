@@ -19,6 +19,11 @@ public class ControllerJUnit extends TestCase {
 		super(testName);
 	}
 	
+	public void setUp() {
+		controller.setModel(model);
+		controller.setView(view);
+	}
+	
 	@Test
 	public void testGetModel() {
 		Model getModel = controller.getModel();

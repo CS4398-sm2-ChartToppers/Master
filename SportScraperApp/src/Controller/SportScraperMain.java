@@ -9,8 +9,6 @@ import querycommand.QueryCommand;
 
 public class SportScraperMain {
 	public static void main(String[] args) throws IOException {
-		//lazy testing to show how the parser works
-		new SportScraperController();
-		QueryCommand createTables = new CreateCbsSqlTables();
+		new ControllerJUnit();
 	}
 }

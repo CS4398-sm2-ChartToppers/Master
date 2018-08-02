@@ -6,9 +6,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Josh/Downloads/Microsoft JDBC Driver 6.4 for SQL Server/sqljdbc_6.4/enu/mssql-jdbc-6.4.0.jre8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Josh/Downloads/Microsoft JDBC Driver 6.4 for SQL Server/sqljdbc_6.4/enu/mssql-jdbc-6.4.0.jre7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Josh/Downloads/Microsoft JDBC Driver 6.4 for SQL Server/sqljdbc_6.4/enu/mssql-jdbc-6.4.0.jre8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Josh/Downloads/Microsoft JDBC Driver 6.4 for SQL Server/sqljdbc_6.4/enu/mssql-jdbc-6.4.0.jre9.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Josh/Downloads/jsoup-1.11.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Josh/Downloads/junit-4.10.jar"/>
 	<classpathentry kind="output" path="src"/>
 </classpath>

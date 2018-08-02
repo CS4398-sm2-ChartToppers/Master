@@ -16,6 +16,8 @@ public class SportScraperController implements Controller{
 		setView(new SportScraperView(this, (RetrieveRS)getModel()));
 	}
 	
+	public String qCommand;
+	public JTable testTable;
 	public View getView() { return this.view; }
 	public Model getModel() { return this.model; }
 	public void setView(View view) { this.view = view; }
@@ -24,12 +26,15 @@ public class SportScraperController implements Controller{
 	public void getSelection(String sport) {
 		switch(sport) {
 			case "NHL Stats" : 
+				qCommand = sport;
 				model.execute(sport);
 				break;
-			case "MLB Stats" : 
+			case "MLB Stats" :
+				qCommand = sport;
 				model.execute(sport);
 				break;
 			case "NFL Stats" : 
+				qCommand = sport;
 				model.execute(sport);
 				break;
 			default :
@@ -41,6 +46,7 @@ public class SportScraperController implements Controller{
 		SportScraperView tempView = (SportScraperView) getView();
 		SportScraperView tempPane = (SportScraperView) tempView.getContentPane();
 		JTable tempTable = new JTable();
+		testTable = tempTable;
 		/*
 		 * From here one would extract the values from our data structure
 		 * and add them to the JTable, and then adding that onto the container.

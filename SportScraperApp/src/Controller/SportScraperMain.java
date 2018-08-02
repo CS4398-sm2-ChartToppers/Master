@@ -1,14 +1,18 @@
 package Controller;
 
 import java.io.IOException;
-import Model.StoreDB;
-import parser.CbsSportsParser;
-import parser.ScrapedData;
-import querycommand.CreateCbsSqlTables;
-import querycommand.QueryCommand;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 
 public class SportScraperMain {
 	public static void main(String[] args) throws IOException {
-		new ControllerJUnit();
+		Result result = JUnitCore.runClasses(ControllerJUnit.class);
+		
+		for (Failure failure : result.getFailures()) {
+	         System.out.println(failure.toString());
+	    }
+			
+	    System.out.println(result.wasSuccessful());
 	}
 }

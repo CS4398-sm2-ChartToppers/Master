@@ -3,6 +3,9 @@ package Controller;
 import Model.Model;
 import View.View;
 
+/**
+ * Interface for the SportScraperController class.
+ */
 public interface Controller {
 	View getView();
 	void setView(View view);

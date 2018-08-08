@@ -9,17 +9,44 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.Jsoup;
 
+/**
+ * Allows pulling of statistics data from tables in an html document, or indirectly 
+ * from a url that is used to generate an html document, and divides this data into
+ * a list of data labels (headers), a list of lists of the statistics data, and a list
+ * of links to images related to individual teams.
+ */
 public class CbsSportsParser implements StandingsParser {
 
 	Document htmlDocument;
 	
+	/**
+	 * Initializes a CbsSportsParser object with a given html document.
+	 * 
+	 * @param html		The provided html document
+	 */
 	public CbsSportsParser (Document html) { this.htmlDocument = html; }
 	
+	/**
+	 * Initializes a CbsSportsParser object with an html document that is generated
+	 * from the given url
+	 * 
+	 * @param url		The provided url
+	 */
 	public CbsSportsParser (String url) {
 		try { htmlDocument = Jsoup.connect(url).get(); } 
 		catch (IOException e) { e.getMessage(); }
 	}
 	
+	/**
+	 * Parses data from a table within and html file that is generated from the given
+	 * url into a ScrapedData object containing a list of data labels, a list of lists 
+	 * of the statistics data, and a list of links to images related to individual teams.
+	 * Not configured for use with MLB data.
+	 * 
+	 * @param url		The provided url
+	 * @return			The ScrapedData object containing parsed data
+	 * @throws IOException
+	 */
 	public static ScrapedData parse(String url) throws IOException {
 		/* Will parse most of the sports with HTML Tables on CbsSports 
 		 * URLS: /nfl/standings/
@@ -41,6 +68,16 @@ public class CbsSportsParser implements StandingsParser {
 		return new ScrapedData(colHeaders,teamStats, imgUrls);
 	}
 	
+	/**
+	 * Parses data from a table within and html file that is generated from the given
+	 * url into a ScrapedData object containing a list of data labels, a list of lists 
+	 * of the statistics data, and a list of links to images related to individual teams.
+	 * Used particularly for MLB data.
+	 * 
+	 * @param url			The provided url
+	 * @return				The ScrapedData object containing parsed data
+	 * @throws IOException	If input is invalid
+	 */
 	public static ScrapedData parseMLB(String url) throws IOException {
 		final List<String> colHeaders, imgUrls;
 		final List<List<String>> teamStats;
@@ -52,9 +89,15 @@ public class CbsSportsParser implements StandingsParser {
 		teamStats = getMLBStats(htmlFile, colHeaders.size());
 		imgUrls = getImageURLS(htmlFile);
 		
-		return new ScrapedData(colHeaders,teamStats, imgUrls);
+		return new ScrapedData(colHeaders, teamStats, imgUrls);
 	}
 	
+	/**
+	 * Retrieves a list of data labels (headers) from a table within an html file.
+	 * 
+	 * @param htmlFile	The provided html file
+	 * @return			The list of data labels
+	 */
 	private static List<String> getHeaders(Document htmlFile) {
 		LinkedHashSet<String> colHeaders = new LinkedHashSet<String>();
 		
@@ -74,6 +117,15 @@ public class CbsSportsParser implements StandingsParser {
 		return headers;
 	}
 	
+	/**
+	 * Retrieves a list of lists containing all team data for a particular team within 
+	 * a table in the given html file, using the header number to distinguish which table,
+	 * and therefore which team, is being accessed. Not configured for use with MLB data.
+	 * 
+	 * @param htmlFile		The provided html file
+	 * @param numHeaders	The index for the table being accessed
+	 * @return				The list of lists of team data
+	 */
 	private static List<List<String>> getTeamStats(Document htmlFile, int numHeaders) {
 		/*
 		 * cbssports.com repeats the same information on their page multiple
@@ -101,6 +153,15 @@ public class CbsSportsParser implements StandingsParser {
 		return stats;
 	}
 	
+	/**
+	 * Retrieves a list of lists containing all team data for a particular team within 
+	 * a table in the given html file, using the header number to distinguish which table,
+	 * and therefore which team, is being accessed. Used particularly for MLB data.
+	 * 
+	 * @param htmlFile		The provided html file
+	 * @param numHeaders	The index for the table being accessed
+	 * @return				The list of lists of team data
+	 */
 	private static List<List<String>> getMLBStats(Document htmlFile, int numHeaders) {
 		HashSet<List<String>> teamStats = new HashSet<List<String>>();
 
@@ -117,6 +178,13 @@ public class CbsSportsParser implements StandingsParser {
 		return stats;
 	}
 	
+	/**
+	 * Retrieves a list of links to images associated with particular teams from a 
+	 * given html file.
+	 * 
+	 * @param htmlFile	The provided html file
+	 * @return			The list of links to images
+	 */
 	private static List<String> getImageURLS(Document htmlFile) {
 		/*
 		 * cbssports.com repeats the same information on their page multiple
@@ -145,6 +213,13 @@ public class CbsSportsParser implements StandingsParser {
 		return imgUrls;
 	}
 	
+	/**
+	 * Checks if two urls are the same.
+	 * 
+	 * @param firstUrl	The first url to be compared
+	 * @param secondUrl	The second url to be compared
+	 * @return			True if the urls are the same, false otherwise
+	 */
 	private static boolean urlEquals(String firstUrl, String secondUrl) {
 		int checkLastDigits = 7;
 		if(firstUrl.length() == secondUrl.length()) {
@@ -161,6 +236,9 @@ public class CbsSportsParser implements StandingsParser {
 		else { return false; }	
 	}
 	
+	/**
+	 * Runs the parser.
+	 */
 	@Override
 	public void run() { }
 }

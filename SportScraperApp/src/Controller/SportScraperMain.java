@@ -12,6 +12,13 @@ import querycommand.CreateCbsSqlTables;
 import querycommand.QueryCommand;
 import View.ViewJUnit;
 
+/**
+ * Runs the entire application by first creating a SportScraperController object in
+ * association with a certain qCommand (selected by user during runtime), and generates
+ * tables in the SQL database that can be accessed with any valid qCommand. Also prints
+ * JUnit test results (true: all tests passed, false + some output: tests related to 
+ * output failed).
+ */
 public class SportScraperMain {
 	public static void main(String[] args) throws IOException {
 		new SportScraperController();

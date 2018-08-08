@@ -7,13 +7,35 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
+/**
+ * Stores either an empty or filled table of statistics into the SQL database, and allows
+ * emptying or filling of a currently stored table.
+ */
 public class StoreDB {	 
 	public static boolean status;
 	
+	/**
+	 * Initializes a filled table of statistics to be stored into the SQL database.
+	 * 
+	 * @param colHeaders	List of labels for individual sets of statistics
+	 * @param data			List of lists of all statistics, ordered by label
+	 * @param tableName		Name of table
+	 */
 	public StoreDB(List<String> colHeaders, List<List<String>> data, String tableName) { createTable(colHeaders, data, tableName); }
 			
+	
+	/**
+	 * Initializes an empty table of statistics to be stored into the SQL database.
+	 * 
+	 * @param tableName		Name of table
+	 */
 	public StoreDB(String tableName) { emptyTable(tableName); }
 	
+	/**
+	 * Stores an empty table of statistics into the SQL database.
+	 * 
+	 * @param tableName		Name of table
+	 */
 	public static void emptyTable(String tableName) {
 		status = false;
 		String userName = "ChartToppers";
@@ -33,6 +55,13 @@ public class StoreDB {
 		} catch(Exception e) { e.printStackTrace(); }
 	}
 	
+	/**
+	 * Stores a filled table of statistics into the SQL database.
+	 * 
+	 * @param colHeaders	List of labels for individual sets of statistics
+	 * @param data			List of lists of all statistics, ordered by label
+	 * @param tableName		Name of table
+	 */
 	public static void createTable(List<String> colHeaders, List<List<String>> data, String tableName) {
 		status = true;
 		String userName = "ChartToppers";

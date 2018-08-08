@@ -12,15 +12,28 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+/**
+ * Tests valid and invalid (when applicable) implementations of CbsSportsParser methods.
+ */
 public class ParserJUnit extends TestCase {
 	private String url = "http://www.cbssports.com";
 	private Document html;
 	private ScrapedData scraped;
 	
+	/**
+	 * Initializes parser JUnit test.
+	 * 
+	 * @param testName		Name of the test, for clarity during runtime
+	 */
 	public ParserJUnit(String testName) {
 		super(testName);
 	}
 	
+	/**
+	 * Setup conditions for private class variables, which generates an html document
+	 * from cbssports.com and creates a ScrapedData object using parsed data from this
+	 * html document.
+	 */
 	public void setUp() {
 		try { html = Jsoup.connect(url).get(); } 
 		catch (IOException e) { e.getMessage(); }
@@ -29,12 +42,23 @@ public class ParserJUnit extends TestCase {
 		catch (IOException e) { e.getMessage(); }
 	}
 	
+	/**
+	 * Tests successful initialization of CbsSportsParser object by ensuring that the
+	 * htmlDocument variable in the initialized CbsSportsParser is the same as the one
+	 * that is provided to it.
+	 */
 	@Test
 	public void testHtmlDocInit() {
 		CbsSportsParser test = new CbsSportsParser(html);
 		assertEquals(html, test.htmlDocument);
 	}
 	
+	/**
+	 * Tests unsuccessful initialization of CbsSortsParser object by ensuring that the
+	 * htmlDocument variable in the initialized CbsSportsParser generated from the 
+	 * provided html document is not the same as a different html document formed from 
+	 * another url.
+	 */
 	@Test
 	public void testFailHtmlDocInit() {
 		url = "http://google.com";
@@ -49,6 +73,11 @@ public class ParserJUnit extends TestCase {
 		assertNotSame(html, test.htmlDocument);
 	}
 	
+	/**
+	 * Tests successful initialization of CbsSportsParser object by ensuring that the
+	 * htmlDocument variable in the initialized CbsSportsParser is the same as the one
+	 * that is generated from the url provided to it.
+	 */
 	@Test
 	public void testUrlDocInit() {
 		CbsSportsParser test = new CbsSportsParser(url);
@@ -56,6 +85,12 @@ public class ParserJUnit extends TestCase {
 		assertEquals(html, test.htmlDocument);
 	}
 	
+	/**
+	 * Tests unsuccessful initialization of CbsSortsParser object by ensuring that the
+	 * htmlDocument variable in the initialized CbsSportsParser generated from the 
+	 * provided url is not the same as a different html document formed from 
+	 * another url.
+	 */
 	@Test
 	public void testFailUrlDocInit() {
 		url = "http://google.com";
@@ -68,6 +103,12 @@ public class ParserJUnit extends TestCase {
 		assertNotSame(html, test.htmlDocument);
 	}
 	
+	/**
+	 * Tests successful parsing of team statistics including the list of data labels
+	 * (headers), lists of lists of statistics data, and list of associated team images
+	 * is the same in the scraped object as is generated below, with both being provided
+	 * data from the same html file. Does not include MLB data.
+	 */
 	@Test
 	public void testParse () {
 		LinkedHashSet<String> colHeaders = new LinkedHashSet<String>();
@@ -112,6 +153,12 @@ public class ParserJUnit extends TestCase {
 		assertEquals(imgUrls, scraped.getImgUrls());
 	}
 	
+	/**
+	 * Tests unsuccessful parsing of team statistics including the list of data labels
+	 * (headers), lists of lists of statistics data, and list of associated team images
+	 * is different in the scraped object from that generated below, with both being provided
+	 * data from a different html file.
+	 */
 	@Test
 	public void testFailParse () {
 		url = "http://google.com";
@@ -160,6 +207,12 @@ public class ParserJUnit extends TestCase {
 		assertNotSame(imgUrls, scraped.getImgUrls());
 	}
 	
+	/**
+	 * Tests successful parsing of MLB statistics including the list of data labels
+	 * (headers), lists of lists of statistics data, and list of associated team images
+	 * is the same in the scraped object as is generated below, with both being provided
+	 * data from the same html file.
+	 */
 	@Test
 	public void testMLBParse() {
 		LinkedHashSet<String> colHeaders = new LinkedHashSet<String>();
@@ -199,6 +252,12 @@ public class ParserJUnit extends TestCase {
 		assertEquals(imgUrls, scraped.getImgUrls());
 	}
 	
+	/**
+	 * Tests unsuccessful parsing of MLB statistics including the list of data labels
+	 * (headers), lists of lists of statistics data, and list of associated team images
+	 * is different in the scraped object from that generated below, with both being provided
+	 * data from a different html file.
+	 */
 	@Test
 	public void testFailMLBParse() {
 		url = "http://google.com";

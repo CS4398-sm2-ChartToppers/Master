@@ -15,9 +15,7 @@ public class ModelJUnit extends TestCase {
 	 * 
 	 * @param testName		Name of the test, for clarity during runtime
 	 */
-	public ModelJUnit(String testName) {
-		super(testName);
-	}
+	public ModelJUnit(String testName) { super(testName); }
 	
 	/**
 	 * Tests the successful emptying of a database by ensuring that the status boolean

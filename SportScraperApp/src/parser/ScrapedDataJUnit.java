@@ -19,9 +19,7 @@ public class ScrapedDataJUnit extends TestCase {
 	 * 
 	 * @param testName		Name of the test, for clarity during runtime
 	 */
-	public ScrapedDataJUnit(String testName) {
-		super(testName);
-	}
+	public ScrapedDataJUnit(String testName) { super(testName); }
 	
 	/**
 	 * Setup conditions for private class variables, which generates fake lists of

@@ -18,9 +18,7 @@ public class ViewJUnit extends TestCase {
 	 * 
 	 * @param testName		Name of the test, for clarity during runtime
 	 */
-	public ViewJUnit(String testName) {
-		super(testName);
-	}
+	public ViewJUnit(String testName) { super(testName); }
 	
 	/**
 	 * Tests successful initialization of the controller by ensuring that the model and

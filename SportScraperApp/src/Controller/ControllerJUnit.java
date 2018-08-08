@@ -1,7 +1,5 @@
 package Controller;
 
-import java.util.ArrayList;
-import javax.swing.*;
 import junit.framework.TestCase;
 import org.junit.*;
 
@@ -12,8 +10,6 @@ import View.View;
  * Tests valid and invalid (when applicable) implementations of SportScraperController methods.
  */
 public class ControllerJUnit extends TestCase {
-	private ArrayList<ArrayList<Double>> statList;
-	private JTable table;
 	private Model model;
 	private View view;
 	
@@ -22,9 +18,7 @@ public class ControllerJUnit extends TestCase {
 	 * 
 	 * @param testName		Name of the test, for clarity during runtime
 	 */
-	public ControllerJUnit(String testName) {
-		super(testName);
-	}
+	public ControllerJUnit(String testName) { super(testName); }
 	
 	/**
 	 * Tests successful initialization of the controller by ensuring that the model and
@@ -196,17 +190,5 @@ public class ControllerJUnit extends TestCase {
 		String qTest = controller.qCommand;
 		
 		assertNull(qTest);
-	}
-	
-	/**
-	 * Tests successful table initialization by ensuring that the empty initialized table
-	 * in the controller is the same as another empty table.
-	 */
-	@Test
-	public void testPrintStats() {
-		SportScraperController controller = new SportScraperController();
-		controller.printStats(statList);
-		
-		assertEquals(table, controller.testTable);
 	}
 }

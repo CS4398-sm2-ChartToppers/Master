@@ -227,9 +227,7 @@ public class CbsSportsParser implements StandingsParser {
 			char v2[] = secondUrl.toCharArray();
 			int i = 0;
 			while(checkLastDigits != 0) {
-				if(v1[i--] !=  v2[i--]) {
-					return false;
-				}
+				if(v1[i--] !=  v2[i--]) { return false; }
 			}
 			return true;
 		}

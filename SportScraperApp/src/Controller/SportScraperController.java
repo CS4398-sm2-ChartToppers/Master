@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import Model.Model;
 import Model.RetrieveRS;
+import Model.StoreDB;
 import View.SportScraperView;
 import View.View;
 
@@ -64,15 +65,23 @@ public class SportScraperController implements Controller {
 		switch(sport) {
 			case "NHL Stats" : 
 				qCommand = sport;
-				model.execute(sport);
+				view.setTableModel(StoreDB.QueryToTableModel("SELECT * FROM NHL ORDER BY \"W Wins\" DESC;"));
 				break;
-			case "MLB Stats" :
+			case "MLB Stats" : 
 				qCommand = sport;
-				model.execute(sport);
+				view.setTableModel(StoreDB.QueryToTableModel("SELECT * FROM MLB ORDER BY \"W Wins\" DESC;"));
 				break;
 			case "NFL Stats" : 
 				qCommand = sport;
-				model.execute(sport);
+				view.setTableModel(StoreDB.QueryToTableModel("SELECT * FROM NFL ORDER BY \"W Wins\" DESC;"));
+				break;
+			case "NBA Stats" : 
+				qCommand = sport;
+				view.setTableModel(StoreDB.QueryToTableModel("SELECT * FROM NBA ORDER BY \"W Wins\" DESC;"));
+				break;
+			case "College Football Stats" : 
+				qCommand = sport;
+				view.setTableModel(StoreDB.QueryToTableModel("SELECT * FROM College_Football ORDER BY \"W Wins\" DESC;"));
 				break;
 			default :
 				break;

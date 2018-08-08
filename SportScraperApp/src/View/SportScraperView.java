@@ -4,10 +4,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import Controller.Controller;
 import Controller.SportScraperController;
 import Model.Model;
+import Model.StoreDB;
 
 /**
  * Displays the GUI for viewing data from the SQL database and allows changing and
@@ -16,6 +18,7 @@ import Model.Model;
  */
 public class SportScraperView extends JFrame implements View, ActionListener{
 	private static final long serialVersionUID = 1L;
+	private JTable statsTable;
 	private Controller controller;
 	private Model model;
 	
@@ -35,15 +38,23 @@ public class SportScraperView extends JFrame implements View, ActionListener{
 		setLayout(new FlowLayout());
 		setSize(200, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		JPanel panel = new JPanel();
-		String[] sportList = {"NHL Stats", "MLB Stats", "NFL Stats"};
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		String[] sportList = {"NHL Stats", "MLB Stats", "NFL Stats", "NBA Stats", "College Football Stats"};
 		JComboBox<String> sportsDropDown = new JComboBox<String>(sportList);
-		sportsDropDown.setSelectedItem(null);
+		sportsDropDown.setSelectedItem("NHL Stats");
+		
+		statsTable = new JTable();
+		statsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		statsTable.setModel(StoreDB.QueryToTableModel("SELECT * FROM NHL ORDER BY \"W Wins\" DESC;" ));
+		
 		sportsDropDown.addActionListener(this);
 		
 		panel.add(sportsDropDown);
+		panel.add(new JScrollPane(statsTable));
 		add(panel);
+		this.pack();
 		setVisible(true);
 	}
 	
@@ -86,4 +97,6 @@ public class SportScraperView extends JFrame implements View, ActionListener{
 	    String newSelection = (String) temp.getSelectedItem();
 	    ((SportScraperController)getController()).getSelection(newSelection);
 	}
+	
+	public void setTableModel(DefaultTableModel model) { statsTable.setModel(model); }
 }

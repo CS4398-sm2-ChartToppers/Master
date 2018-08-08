@@ -1,5 +1,7 @@
 package View;
 
+import javax.swing.table.DefaultTableModel;
+
 import Controller.Controller;
 import Model.Model;
 
@@ -12,4 +14,6 @@ public interface View {
 	
 	Model getModel();
 	void setModel(Model model);
+	
+	void setTableModel(DefaultTableModel model);
 }

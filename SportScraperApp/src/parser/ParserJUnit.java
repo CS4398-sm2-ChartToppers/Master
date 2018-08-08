@@ -25,9 +25,7 @@ public class ParserJUnit extends TestCase {
 	 * 
 	 * @param testName		Name of the test, for clarity during runtime
 	 */
-	public ParserJUnit(String testName) {
-		super(testName);
-	}
+	public ParserJUnit(String testName) { super(testName); }
 	
 	/**
 	 * Setup conditions for private class variables, which generates an html document
@@ -71,18 +69,6 @@ public class ParserJUnit extends TestCase {
 		catch (IOException e) { e.getMessage(); }
 		
 		assertNotSame(html, test.htmlDocument);
-	}
-	
-	/**
-	 * Tests successful initialization of CbsSportsParser object by ensuring that the
-	 * htmlDocument variable in the initialized CbsSportsParser is the same as the one
-	 * that is generated from the url provided to it.
-	 */
-	@Test
-	public void testUrlDocInit() {
-		CbsSportsParser test = new CbsSportsParser(url);
-		
-		assertEquals(html, test.htmlDocument);
 	}
 	
 	/**
@@ -142,11 +128,7 @@ public class ParserJUnit extends TestCase {
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
 		
 		List<String> imgUrls = new ArrayList<String>();
-		for (Element img : html.select("img")) {
-			if(img.attr("alt").equals("team logo")) {
-				imgUrls.add(img.attr("data-lazy"));
-			}
-		}
+		for (Element img : html.select("img")) { if(img.attr("alt").equals("team logo")) { imgUrls.add(img.attr("data-lazy")); } }
 		
 		assertEquals(headers, scraped.getColumnHeaders());
 		assertEquals(stats, scraped.getTeamStats());
@@ -196,11 +178,7 @@ public class ParserJUnit extends TestCase {
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
 		
 		List<String> imgUrls = new ArrayList<String>();
-		for (Element img : html.select("img")) {
-			if(img.attr("alt").equals("team logo")) {
-				imgUrls.add(img.attr("data-lazy"));
-			}
-		}
+		for (Element img : html.select("img")) { if(img.attr("alt").equals("team logo")) { imgUrls.add(img.attr("data-lazy")); } }
 		
 		assertNotSame(headers, scraped.getColumnHeaders());
 		assertNotSame(stats, scraped.getTeamStats());
@@ -241,11 +219,7 @@ public class ParserJUnit extends TestCase {
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
 		
 		List<String> imgUrls = new ArrayList<String>();
-		for (Element img : html.select("img")) {
-			if(img.attr("alt").equals("team logo")) {
-				imgUrls.add(img.attr("data-lazy"));
-			}
-		}
+		for (Element img : html.select("img")) { if(img.attr("alt").equals("team logo")) { imgUrls.add(img.attr("data-lazy")); } }
 		
 		assertEquals(headers, scraped.getColumnHeaders());
 		assertEquals(stats, scraped.getTeamStats());
@@ -290,11 +264,7 @@ public class ParserJUnit extends TestCase {
 		List<List<String>> stats = new ArrayList<List<String>>(teamStats);
 		
 		List<String> imgUrls = new ArrayList<String>();
-		for (Element img : html.select("img")) {
-			if(img.attr("alt").equals("team logo")) {
-				imgUrls.add(img.attr("data-lazy"));
-			}
-		}
+		for (Element img : html.select("img")) { if(img.attr("alt").equals("team logo")) { imgUrls.add(img.attr("data-lazy")); } }
 		
 		assertNotSame(headers, scraped.getColumnHeaders());
 		assertNotSame(stats, scraped.getTeamStats());

@@ -2,6 +2,9 @@ package Controller;
 
 import java.io.IOException;
 
+import querycommand.CreateCbsSqlTables;
+import querycommand.QueryCommand;
+
 /**
  * Runs the entire application by first creating a SportScraperController object in
  * association with a certain qCommand (selected by user during runtime), and generates
@@ -12,8 +15,8 @@ import java.io.IOException;
 public class SportScraperMain {
 	public static void main(String[] args) throws IOException {
 		new SportScraperController();
-		//@SuppressWarnings("unused")
-		//QueryCommand createTables = new CreateCbsSqlTables();
+		@SuppressWarnings("unused")
+		QueryCommand createTables = new CreateCbsSqlTables();
 		
 		/**Result result = JUnitCore.runClasses(ControllerJUnit.class);
 		for (Failure failure : result.getFailures()) { System.out.println(failure.toString()); }

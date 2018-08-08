@@ -39,6 +39,7 @@ public class SportScraperView extends JFrame implements View, ActionListener{
 	public Controller getController() { return this.controller; }
 	
 	public void actionPerformed(ActionEvent e) {
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		JComboBox<String> temp = (JComboBox) e.getSource();
 	    String newSelection = (String) temp.getSelectedItem();
 	    ((SportScraperController)getController()).getSelection(newSelection);

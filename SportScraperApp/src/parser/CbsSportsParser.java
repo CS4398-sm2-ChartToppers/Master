@@ -103,15 +103,11 @@ public class CbsSportsParser implements StandingsParser {
 	}
 	
 	private static List<List<String>> getMLBStats(Document htmlFile, int numHeaders) {
-		int max = 0;
 		HashSet<List<String>> teamStats = new HashSet<List<String>>();
 
 		for(Element row : htmlFile.select("tr")) {
 			List<String> team = new ArrayList<String>();
-			int i = 0;
-			
 			for(Element tds: row.select("td")) { team.add(tds.text()); }
-			
 			teamStats.add(team);
 		}
 		
@@ -156,7 +152,6 @@ public class CbsSportsParser implements StandingsParser {
 			char v1[] = firstUrl.toCharArray();
 			char v2[] = secondUrl.toCharArray();
 			int i = 0;
-			int j = 0;
 			while(checkLastDigits != 0) {
 				if(v1[i--] !=  v2[i--]) {
 					return false;
@@ -165,11 +160,6 @@ public class CbsSportsParser implements StandingsParser {
 			return true;
 		}
 		else { return false; }	
-	}
-	
-	private static int maxListSize(int max ,int size) {
-		if (size > max ) max = size;
-		return max;
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 public class ScrapedData {
 	List<List<String>> teamStats;
 	List<String> columnHeaders, imgUrls;
+	
 	public ScrapedData(List<String> headers, List<List<String>> values, List<String> imgUrls) {
 		columnHeaders = headers;
 		teamStats = values;

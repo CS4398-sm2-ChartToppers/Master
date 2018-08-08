@@ -1,11 +1,11 @@
 package parser;
 
-import junit.framework.TestCase;
-import org.junit.*;
 import java.io.IOException;
-import org.jsoup.Jsoup;
+import junit.framework.TestCase;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.Jsoup;
+import org.junit.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,16 +40,19 @@ public class ParserJUnit extends TestCase {
 		url = "http://google.com";
 		try { html = Jsoup.connect(url).get(); } 
 		catch (IOException e) { e.getMessage(); }
+		
 		CbsSportsParser test = new CbsSportsParser(html);
 		url = "http://cbssports.com";
 		try { html = Jsoup.connect(url).get(); } 
 		catch (IOException e) { e.getMessage(); }
+		
 		assertNotSame(html, test.htmlDocument);
 	}
 	
 	@Test
 	public void testUrlDocInit() {
 		CbsSportsParser test = new CbsSportsParser(url);
+		
 		assertEquals(html, test.htmlDocument);
 	}
 	
@@ -58,8 +61,10 @@ public class ParserJUnit extends TestCase {
 		url = "http://google.com";
 		try { html = Jsoup.connect(url).get(); } 
 		catch (IOException e) { e.getMessage(); }
+		
 		url = "http://www.cbssports.com";
 		CbsSportsParser test = new CbsSportsParser(url);
+		
 		assertNotSame(html, test.htmlDocument);
 	}
 	

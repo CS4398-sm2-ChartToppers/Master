@@ -1,8 +1,8 @@
 package parser;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import junit.framework.TestCase;
 import org.junit.*;
 
@@ -27,6 +27,7 @@ public class ScrapedDataJUnit extends TestCase {
 	@Test
 	public void testSDInit() {
 		ScrapedData init = new ScrapedData(columnHeaders, teamStats, imgUrls);
+		
 		assertEquals(teamStats, init.teamStats);
 		assertEquals(columnHeaders, init.columnHeaders);
 		assertEquals(imgUrls, init.imgUrls);
@@ -35,6 +36,7 @@ public class ScrapedDataJUnit extends TestCase {
 	@Test
 	public void testFailSDInit() {
 		ScrapedData init = new ScrapedData(imgUrls, otherTeamStats, columnHeaders);
+		
 		assertNotSame(teamStats, init.teamStats);
 		assertNotSame(columnHeaders, init.columnHeaders);
 		assertNotSame(imgUrls, init.imgUrls);
@@ -44,6 +46,7 @@ public class ScrapedDataJUnit extends TestCase {
 	public void testGetHeaders() {
 		ScrapedData init = new ScrapedData(columnHeaders, teamStats, imgUrls);
 		List<String> getHeaders = init.getColumnHeaders();
+		
 		assertEquals(getHeaders, init.columnHeaders);
 	}
 	
@@ -51,6 +54,7 @@ public class ScrapedDataJUnit extends TestCase {
 	public void testFailGetHeaders() {
 		ScrapedData init = new ScrapedData(columnHeaders, teamStats, imgUrls);
 		List<String> getHeaders = init.getImgUrls();
+		
 		assertNotSame(getHeaders, init.columnHeaders);
 	}
 	
@@ -58,6 +62,7 @@ public class ScrapedDataJUnit extends TestCase {
 	public void testGetStats() {
 		ScrapedData init = new ScrapedData(columnHeaders, teamStats, imgUrls);
 		List<List<String>> getStats = init.getTeamStats();
+		
 		assertEquals(getStats, init.teamStats);
 	}
 	
@@ -65,6 +70,7 @@ public class ScrapedDataJUnit extends TestCase {
 	public void testFailGetStats() {
 		ScrapedData init = new ScrapedData(columnHeaders, teamStats, imgUrls);
 		List<List<String>> getStats = init.getTeamStats();
+		
 		assertNotSame(getStats, otherTeamStats);
 	}
 	
@@ -72,6 +78,7 @@ public class ScrapedDataJUnit extends TestCase {
 	public void testGetUrls() {
 		ScrapedData init = new ScrapedData(columnHeaders, teamStats, imgUrls);
 		List<String> getUrls = init.getImgUrls();
+		
 		assertEquals(getUrls, init.imgUrls);
 	}
 	
@@ -79,6 +86,7 @@ public class ScrapedDataJUnit extends TestCase {
 	public void testFailGetUrls() {
 		ScrapedData init = new ScrapedData(columnHeaders, teamStats, imgUrls);
 		List<String> getUrls = init.getColumnHeaders();
+		
 		assertNotSame(getUrls, init.imgUrls);
 	}
 }

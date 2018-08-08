@@ -1,14 +1,13 @@
 package parser;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.Jsoup;
 
 public class CbsSportsParser implements StandingsParser {
 

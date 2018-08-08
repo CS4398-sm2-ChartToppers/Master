@@ -1,4 +1,5 @@
 package Controller;
+
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -8,20 +9,20 @@ import View.SportScraperView;
 import View.View;
 
 public class SportScraperController implements Controller{
-	private View view;
 	private Model model;
+	private View view;
 	
 	public SportScraperController() {
 		setModel(new RetrieveRS());
 		setView(new SportScraperView(this, (RetrieveRS)getModel()));
 	}
 	
-	public String qCommand;
 	public JTable testTable;
-	public View getView() { return this.view; }
+	public String qCommand;
 	public Model getModel() { return this.model; }
-	public void setView(View view) { this.view = view; }
 	public void setModel(Model model) { this.model = model; }
+	public View getView() { return this.view; }
+	public void setView(View view) { this.view = view; }
 	
 	public void getSelection(String sport) {
 		switch(sport) {

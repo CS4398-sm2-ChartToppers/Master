@@ -3,9 +3,9 @@ package Model;
 //TO RUN: add mssql.jdbc-6.4.0.jre8.jar to build-path 
 import java.util.List;
 import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 public class StoreDB {	 
 	public static boolean status;

@@ -21,10 +21,10 @@ public class CreateCbsSqlTables implements QueryCommand {
 		ScrapedData data;
 		for (int i = 0; i < urls.length; i ++) {
 			try {
-			System.out.println("Gathering Data for " + tblNames[i]+ " rankings...");
-			data = CbsSportsParser.parse(domain+urls[i]);
-			System.out.println("Creating SQL Table for " + tblNames[i]+ " rankings...");
-			StoreDB.createTable(data.getColumnHeaders(), data.getTeamStats(), tblNames[i]);
+				System.out.println("Gathering Data for " + tblNames[i] + " rankings...");
+				data = CbsSportsParser.parse(domain+urls[i]);
+				System.out.println("Creating SQL Table for " + tblNames[i] + " rankings...");
+				StoreDB.createTable(data.getColumnHeaders(), data.getTeamStats(), tblNames[i]);
 			} catch (IOException e) { e.getMessage(); }
 		}
 		

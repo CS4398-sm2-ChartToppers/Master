@@ -1,7 +1,6 @@
 package parser;
 
-public class MLBParser implements StandingsParser 
-{
+public class MLBParser implements StandingsParser {
 	public MLBParser() { System.out.println("MLBParser created"); }
 	
 	@Override

@@ -1,10 +1,10 @@
 package Model;
 
-import junit.framework.TestCase;
-import org.junit.*;
-import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
+import junit.framework.TestCase;
+import org.junit.*;
 
 public class ModelJUnit extends TestCase {
 	public ModelJUnit(String testName) {
@@ -15,6 +15,7 @@ public class ModelJUnit extends TestCase {
 	public void testSetEmptyDB() {
 		@SuppressWarnings("unused")
 		StoreDB testDB = new StoreDB("Empty");
+		
 		assertFalse(StoreDB.status);
 	}
 	
@@ -28,6 +29,7 @@ public class ModelJUnit extends TestCase {
 		ls2d.add(x);
 		@SuppressWarnings("unused")
 		StoreDB testDB = new StoreDB(test, ls2d, "Full");
+		
 		assertTrue(StoreDB.status);
 	}
 	
@@ -41,6 +43,7 @@ public class ModelJUnit extends TestCase {
 		ls2d.add(x);		
 		@SuppressWarnings("unused")
 		StoreDB testDB = new StoreDB(test, ls2d, "Full");
+		
 		assertTrue(StoreDB.status);
 	}
 	
@@ -48,6 +51,7 @@ public class ModelJUnit extends TestCase {
 	public void testFailSetFilledDB() {
 		@SuppressWarnings("unused")
 		StoreDB testDB = new StoreDB("Empty");
+		
 		assertFalse(StoreDB.status);
 	}
 }

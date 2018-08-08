@@ -19,6 +19,7 @@ public class ViewJUnit extends TestCase {
 		SportScraperView view = new SportScraperView(controller, model);
 		Controller getController = view.getController();
 		Model getModel = view.getModel();
+		
 		assertEquals(getController, controller);
 		assertEquals(getModel, model);
 	}
@@ -27,6 +28,7 @@ public class ViewJUnit extends TestCase {
 	public void testGetModel() {
 		SportScraperView view = new SportScraperView(controller, model);
 		Model getModel = view.getModel();
+		
 		assertEquals(getModel, model);
 	}
 	
@@ -34,6 +36,7 @@ public class ViewJUnit extends TestCase {
 	public void testFailGetModel() {
 		SportScraperView view = new SportScraperView(controller, model);
 		Model getModel = view.getModel();
+		
 		assertEquals(getModel, controller);
 	}
 	
@@ -41,6 +44,7 @@ public class ViewJUnit extends TestCase {
 	public void testGetController() {
 		SportScraperView view = new SportScraperView(controller, model);
 		Controller getController = view.getController();
+		
 		assertEquals(getController, controller);
 	}
 	
@@ -48,6 +52,7 @@ public class ViewJUnit extends TestCase {
 	public void testFailGetController() {
 		SportScraperView view = new SportScraperView(controller, model);
 		Controller getController = view.getController();
+		
 		assertEquals(getController, model);
 	}
 }

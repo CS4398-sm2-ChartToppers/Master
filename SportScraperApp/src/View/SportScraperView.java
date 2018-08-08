@@ -1,8 +1,10 @@
 package View;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
 import Controller.Controller;
 import Controller.SportScraperController;
 import Model.Model;

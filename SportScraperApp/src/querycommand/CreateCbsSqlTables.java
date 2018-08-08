@@ -6,6 +6,10 @@ import Model.StoreDB;
 import parser.CbsSportsParser;
 import parser.ScrapedData;
 
+/**
+ * Facilitates storing of data from parsed html files into SQL database according to
+ * the associated qCommand.
+ */
 public class CreateCbsSqlTables implements QueryCommand {
 	private final String urls[] = {"/nfl/standings/",
 			 	 				   "/nba/standings/regular/division/",
@@ -16,6 +20,9 @@ public class CreateCbsSqlTables implements QueryCommand {
 	private final String domain = "http://www.cbssports.com";	
 	public CreateCbsSqlTables() { run(); }
 	
+	/**
+	 * Stores parsed data into SQL database while printing status updates to console.
+	 */
 	@Override
 	public void run() {
 		ScrapedData data;

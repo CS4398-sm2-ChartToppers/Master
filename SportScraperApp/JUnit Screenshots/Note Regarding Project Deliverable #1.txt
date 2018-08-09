@@ -1,0 +1,1 @@
+The structure of our application prevented unit tests from having significant, if any screenshot associated with them. The description of the execution of our testcases is contained within the documentation for our JUnit classes.

@@ -1,0 +1,7 @@
+1. Contained within "JUnit Screenshots" folder with additional explanation
+2. Contained in "Class Diagram" JPG file
+3. Contained in "Statecharts" folder
+4. Contained in "System Structure Description" Word document
+5. Contained in "src" file
+6. Contained in "doc" file
+7. Contained in "src" file
